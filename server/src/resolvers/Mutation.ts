@@ -11,7 +11,9 @@ const mutationTwitterResolver: MutationResolvers<TwitterResolverContext> = {
     });
     const dbTweetMap = (dbTweetCache ||= {});
     dbTweetMap[dbTweet.id] = dbTweet;
-    return tweetTransform(dbTweet);
+    const dbAuthor = db.getUserById(userId);
+    if (!dbAuthor) throw new Error(`No author found for ${userId}`);
+    return Object.assign(tweetTransform(dbTweet), { author: dbAuthor });
   },
 };
 
