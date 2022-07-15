@@ -56,6 +56,11 @@ export const GET_CURRENT_USER = gql`
         followingCount
         followerCount
       }
+      favorites {
+        tweet {
+          id
+        }
+      }
     }
     suggestions {
       name
@@ -77,6 +82,7 @@ const App: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
   if (!data) return <p>No data.</p>;
   const { currentUser, suggestions = [] } = data;
+  //console.log({ favorites: currentUser.favorites });
 
   return (
     <div>
