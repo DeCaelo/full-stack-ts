@@ -12,6 +12,13 @@ import { formatDistanceToNow } from 'date-fns';
 import * as React from 'react';
 import TweetMessage from './TweetMessage';
 import { humanFriendlyNumber } from './utils/number';
+import { gql } from '@apollo/client';
+import {
+  useCreateFavoriteMutation,
+  useDeleteFavoriteMutation,
+} from './generated/graphql';
+import { GET_TIMELINE_TWEETS } from './Timeline';
+import { GET_CURRENT_USER } from './App';
 
 export interface TweetProps {
   currentUserId: string;
@@ -30,6 +37,21 @@ export interface TweetProps {
     commentCount: number;
   };
 }
+
+export const CREATE_FAVORITE = gql`
+  mutation CreateFavorite($favorite: FavoriteInput!) {
+    createFavorite(favorite: $favorite) {
+      id
+    }
+  }
+`;
+export const DELETE_FAVORITE = gql`
+  mutation DeleteFavorite($favorite: FavoriteInput!) {
+    deleteFavorite(favorite: $favorite) {
+      id
+    }
+  }
+`;
 
 const Tweet: React.FC<TweetProps> = ({ tweet, currentUserId }) => {
   const {
