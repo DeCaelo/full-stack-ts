@@ -55,7 +55,7 @@ export const DELETE_FAVORITE = gql`
 
 const Tweet: React.FC<TweetProps> = ({ tweet, currentUserId }) => {
   const {
-    id: _id,
+    id,
     message,
     createdAt,
     favoriteCount,
@@ -67,9 +67,38 @@ const Tweet: React.FC<TweetProps> = ({ tweet, currentUserId }) => {
   const handleFavoriteClick: React.MouseEventHandler<HTMLButtonElement> = (
     _evt
   ) => {
-    if (isFavorited) console.log('Unfavorite', { tweet, currentUserId });
-    else console.log('Favorite', { tweet, currentUserId });
+    if (isFavorited)
+      deleteFavorite().catch((err) =>
+        console.error('error while deleting favorite', err)
+      );
+    else
+      createFavorite().catch((err) =>
+        console.error('error while creating favorite', err)
+      );
   };
+
+  const [createFavorite, { error: createFavoriteError }] =
+    useCreateFavoriteMutation({
+      variables: {
+        favorite: { tweetId: id, userId: currentUserId },
+      },
+      refetchQueries: [GET_TIMELINE_TWEETS, GET_CURRENT_USER],
+    });
+
+  const [deleteFavorite, { error: deleteFavoriteError }] =
+    useDeleteFavoriteMutation({
+      variables: {
+        favorite: { tweetId: id, userId: currentUserId },
+      },
+      refetchQueries: [GET_TIMELINE_TWEETS, GET_CURRENT_USER],
+    });
+
+  if (createFavoriteError) {
+    return <p>Error creating favorite: {createFavoriteError.message}</p>;
+  }
+  if (deleteFavoriteError) {
+    return <p>Error deleting favorite: {deleteFavoriteError.message}</p>;
+  }
 
   return (
     <div className="tweet">
