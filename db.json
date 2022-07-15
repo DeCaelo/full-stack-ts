@@ -48,6 +48,20 @@
       "createdAt": "2022-07-15T08:22:58.981Z",
       "updatedAt": "2022-07-15T08:22:58.981Z",
       "id": "tweet-68d97c71-922a-42a9-b2a8-ca3f05c40609"
+    },
+    {
+      "message": "refetch data after submit",
+      "userId": "user-15a37948-7712-4e0b-a554-2fef33f31697",
+      "createdAt": "2022-07-15T08:26:56.674Z",
+      "updatedAt": "2022-07-15T08:26:56.675Z",
+      "id": "tweet-5c2655e0-9bf8-4533-9384-b935be119be9"
+    },
+    {
+      "message": "tweet count up",
+      "userId": "user-15a37948-7712-4e0b-a554-2fef33f31697",
+      "createdAt": "2022-07-15T08:29:58.365Z",
+      "updatedAt": "2022-07-15T08:29:58.365Z",
+      "id": "tweet-1f39589d-9273-4433-be22-701715036f27"
     }
   ],
   "users": [
